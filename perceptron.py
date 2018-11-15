@@ -63,6 +63,7 @@ def train_newtork(train_set, weights, epochs, threshold):
 def test_network(test_set, error, weights, threshold):
     if error >= 1 or len(test_set) == 0:
         print("no solution found")
+        exit(0)
     else:
         for vals in test_set:
             print(activation_function(vals, weights, threshold))
