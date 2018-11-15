@@ -32,8 +32,8 @@ def activation_function(vals, weights, threshold):
         return 0
 
 def update_weights(vals, weights, threshold):
-    output = vals[-1]
-    a_function_result = activation_function(vals[0:-1], weights, threshold)
+    output = vals[1]
+    a_function_result = activation_function(vals[:-1], weights, threshold)
     #print(a_function_result)
     error = output - a_function_result
     for i in range(len(weights)):
@@ -43,9 +43,8 @@ def update_weights(vals, weights, threshold):
 # The number of weights is defined by the dimensionality of the input
 def starting_weights(weights, dimensionality):
     for i in range(dimensionality):
-        # Setting small random numbers to the initial weights
-        weights.append(random.random())
-    return weights
+    	random_weight = random.randrange(0,1)
+    	weights.append(random_weight)
 
 def train_newtork(train_set, weights, epochs, threshold):
     for i in range(epochs):
@@ -56,14 +55,11 @@ def train_newtork(train_set, weights, epochs, threshold):
             # This is just to prevent overfitting
             if error == 0:
                 break
-    #print(error)
-    #print(weights)
     return (error, weights)
 
 def test_network(test_set, error, weights, threshold):
     if error >= 1 or len(test_set) == 0:
         print("no solution found")
-        exit(0)
     else:
         for vals in test_set:
             print(activation_function(vals, weights, threshold))
@@ -75,14 +71,15 @@ if __name__ == "__main__":
     test_size = int(input())
     train_set = []
     test_set = []
+    weights = []
     for _ in range(train_size):
         train_set.append(list(map(float,input().replace(" ", "").split(","))))
     for _ in range(test_size):
         test_set.append(list(map(float,input().replace(" ", "").split(","))))
 
-    weights = starting_weights([], dimensionality)
+    starting_weights(weights, dimensionality)
     epochs = 100
-    threshold = random.randint(0,2)
+    threshold = random.randrange(0,2)
     error = 0
     error, weights = train_newtork(train_set, weights, epochs, threshold)
 
