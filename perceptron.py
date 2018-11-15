@@ -43,17 +43,19 @@ def update_weights(vals, weights, threshold):
 # The number of weights is defined by the dimensionality of the input
 def starting_weights(weights, dimensionality):
     for i in range(dimensionality):
-    	weights.append(random.randrange(0,1))
+        # Setting small random numbers to the initial weights
+        weights.append(random.random())
+    return weights
 
 def train_newtork(train_set, weights, epochs, threshold):
-    for _ in range(epochs):
+    for i in range(epochs):
         error = 0
-        for li in train_set:
-            aux_error, weights = update_weights(li, weights, threshold)
+        for j in range(len(train_set)):
+            aux_error, weights = update_weights(train_set[j], weights, threshold)
             error += pow(aux_error, 2)
             # This is just to prevent overfitting
-            if error == 0:
-                break
+            # if error == 0:
+            #     break
     return (error, weights)
 
 def test_network(test_set, error, weights, threshold):
@@ -70,15 +72,14 @@ if __name__ == "__main__":
     test_size = int(input())
     train_set = []
     test_set = []
-    weights = []
     for _ in range(train_size):
         train_set.append(list(map(float,input().replace(" ", "").split(","))))
     for _ in range(test_size):
         test_set.append(list(map(float,input().replace(" ", "").split(","))))
-
-    starting_weights(weights, dimensionality)
+    print(test_set)
+    weights = starting_weights([], dimensionality)
     epochs = 100
-    threshold = random.randrange(1,10)
+    threshold = random.randint(0,2)
     error = 0
     error, weights = train_newtork(train_set, weights, epochs, threshold)
 
