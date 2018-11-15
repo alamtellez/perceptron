@@ -32,7 +32,7 @@ def activation_function(vals, weights, threshold):
         return 0
 
 def update_weights(vals, weights, threshold):
-    output = vals[1]
+    output = vals[-1]
     a_function_result = activation_function(vals[:-1], weights, threshold)
     #print(a_function_result)
     error = output - a_function_result
@@ -43,13 +43,13 @@ def update_weights(vals, weights, threshold):
 # The number of weights is defined by the dimensionality of the input
 def starting_weights(weights, dimensionality):
     for i in range(dimensionality):
-    	weights.append(random.randint(0,1))
+    	weights.append(random.randrange(0,1))
 
 def train_newtork(train_set, weights, epochs, threshold):
-    for i in range(epochs):
+    for _ in range(epochs):
         error = 0
-        for j in range(len(train_set)):
-            aux_error, weights = update_weights(train_set[j], weights, threshold)
+        for li in train_set:
+            aux_error, weights = update_weights(li, weights, threshold)
             error += pow(aux_error, 2)
             # This is just to prevent overfitting
             if error == 0:
@@ -77,9 +77,8 @@ if __name__ == "__main__":
         test_set.append(list(map(float,input().replace(" ", "").split(","))))
 
     starting_weights(weights, dimensionality)
-    print(weights)
     epochs = 100
-    threshold = random.randrange(0,2)
+    threshold = random.randrange(1,10)
     error = 0
     error, weights = train_newtork(train_set, weights, epochs, threshold)
 
