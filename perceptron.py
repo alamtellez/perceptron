@@ -74,24 +74,14 @@ if __name__ == "__main__":
     test_size = int(input())
     train_set = []
     test_set = []
-    for i in range(train_size):
-        parsed_line = input().rstrip('\n').rstrip('\r').replace(" ", "").split(",")
-        for i in range(len(parsed_line)):
-            parsed_line[i] = float(parsed_line[i])
-        train_set.append(parsed_line)
-    for i in range(test_size):
-        parsed_line = input().rstrip('\n').rstrip('\r').replace(" ", "").split(",")
-        for i in range(len(parsed_line)):
-            parsed_line[i] = float(parsed_line[i])
-        test_set.append(parsed_line)
-    # train_set = list(map(int, train_set))
-    # test_set = list(map(int, test_set))
-
-    #print(train_set[0][0:-1])
+    for _ in range(train_size):
+        train_set.append(list(map(float,input().replace(" ", "").split(","))))
+    for _ in range(test_size):
+        test_set.append(list(map(float,input().replace(" ", "").split(","))))
 
     weights = starting_weights([], dimensionality)
     epochs = 100
-    threshold = random.randrange(0,2)
+    threshold = random.randint(0,2)
     error = 0
     error, weights = train_newtork(train_set, weights, epochs, threshold)
 
