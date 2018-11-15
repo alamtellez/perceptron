@@ -43,8 +43,7 @@ def update_weights(vals, weights, threshold):
 # The number of weights is defined by the dimensionality of the input
 def starting_weights(weights, dimensionality):
     for i in range(dimensionality):
-    	random_weight = random.randrange(0,1)
-    	weights.append(random_weight)
+    	weights.append(random.randint(0,1))
 
 def train_newtork(train_set, weights, epochs, threshold):
     for i in range(epochs):
@@ -78,6 +77,7 @@ if __name__ == "__main__":
         test_set.append(list(map(float,input().replace(" ", "").split(","))))
 
     starting_weights(weights, dimensionality)
+    print(weights)
     epochs = 100
     threshold = random.randrange(0,2)
     error = 0
